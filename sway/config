@@ -1,0 +1,142 @@
+# My probably horrible attempt at creating a Sway config 
+# by Karim
+
+set $mod Mod4
+
+set $term kitty
+set $menu wofi --show drun
+set $browser /home/karim/zen/zen
+set $file_explorer thunar
+
+exec mako
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/karim/Downloads/purple_wallpaper.jpg fill
+
+# Keybinds
+
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+bindsym $mod+d exec $menu
+#bindsym $mod+Space exec $browser
+bindsym $mod+w exec $file_explorer
+bindsym $mod+Shift+e exec swaymsg exit
+bindsym $mod+Shift+r exec swaymsg reload
+floating_modifier $mod normal
+bindsym $mod+s scratchpad show
+bindsym $mod+Shift+s sticky toggle
+bindsym $mod+Escape exec /home/karim/.config/waybar/scripts/power_tray_toggle.sh
+
+
+# Moving around
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up move up
+bindsym $mod+shift+Down move down
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+k move up
+bindsym $mod+shift+j move down
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Here is a thing that I will forget that is why I am adding this comment
+# The following keybinds will allow me to set the orientation of the new container [vertical/horizontal]
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Space focus mode_toggle
+bindsym $mod+a focus parent
+
+mode "resize" {
+	bindsym Left resize shrink width -10px
+	bindsym Right resize shrink width 10px
+	bindsym Up resize shrink height -10px
+	bindsym Down resize shrink height 10px
+	
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+# Emoji
+
+bindsym $mod+Comma exec bemoji -t -n
+
+# Utilities
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+#Keyboard layout
+input * {
+    xkb_layout "us, az"
+    #xkb_variant ",qüerty"
+    xkb_options "grp:alt_shift_toggle"
+}
+
+# Bar
+bar {
+	swaybar_command waybar
+}
+
+include /etc/sway/config.d/*
+
+# Input
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+    accel_profile flat
+    dwt enabled
+    pointer_accel 0.5
+    scroll_factor 0.5
+    middle_emulation enabled  #triple finger click for middle mouse button
+}
+
+bindsym $mod+shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+
+# General configuration
+default_border pixel
+
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="blueman-manager"] floating enable
+for_window [app_id=$file_explorer] floating enable

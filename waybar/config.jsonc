@@ -1,0 +1,112 @@
+{
+  "layer": "top", // "top" or "bottom"
+  "position": "top", // bar position
+  "height": 30, // bar height in px
+  "modules-left": [
+    "sway/workspaces",
+    "sway/window",
+    "sway/mode",
+    "sway/scratchpad",
+    "sway/language"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "cpu",
+    "bluetooth",
+    "network",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "tray",
+    "custom/separator",
+    "custom/power"
+  ],
+  "clock": {
+    //"format": "{:%Y-%m-%d %H:%M:%S}",
+    //"tooltip-format": "<big>{:%A}</big>\n<tt>{:%Y-%m-%d}</tt>"
+    "format": "{:%H:%M}",
+    "tooltip-format": "{calendar}"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "format-muted": "MUTE ",
+    "on-click": "pavucontrol"
+  },
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+    "format-disconnected": "Disconnected ⚠"
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "on-click": "/home/karim/.config/waybar/scripts/power-profile.sh"
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "cpu": {
+    "interval": 2,
+    "format": "{usage}% CPU"
+  },
+  "sway/window": {
+    "format": "{title}",
+    "max-length": 50
+  },
+  "backlight": {
+    "format": "{percent}% {icon}",
+    /* "format-icons": ["🌑", "🌒", "🌓", "🌔", "🌕"] */
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "sway/language": {
+    "format": {}
+  },
+  "sway/scratchpad": {
+    "format": "{count} in scratchpad",
+    "show-empty": false
+  },
+  "bluetooth": {
+    "format": "󰂯 {device_alias}",
+    "format-on": "{status}: Not connected",
+    "format-off": "{status}",
+    "format-disabled": "Bluetooth off",
+    "tooltip-format-connected-battery": "{device_battery_percentage}% charge",
+    "on-click": "blueman-manager"
+  },
+  "custom/power": {
+    "format": "󰐥",
+    "tooltip": false,
+    /*"on-click": "shutdown now",
+    "on-double-click": "reboot"*/
+    "menu": "on-click",
+    "menu-file": "/home/karim/.config/waybar/menu/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "shutdown now",
+      "reboot": "reboot"
+    }
+  },
+  "custom/separator": {
+    "format": "|",
+    "tooltip": false
+  }
+}
